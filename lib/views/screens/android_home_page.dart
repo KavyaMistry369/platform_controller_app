@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:platform_controller/controllers/date_controller.dart';
 import 'package:platform_controller/controllers/platform_provider.dart';
+import 'package:platform_controller/utils/route_utils.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
 
@@ -30,18 +31,11 @@ class Homeandro extends StatelessWidget {
           Provider.of<PlatformController>(context,listen: false).nav(index: index),
         },),
         appBar: AppBar(
-          // actions: [
-          //   Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: IconButton(onPressed: (){
-          //      // DateTime? d= await showDatePicker(context: context, initialDate:provider.mydate, firstDate:DateTime(1947), lastDate: DateTime.now().add(Duration(days: 1),),
-          //      //   initialEntryMode: DatePickerEntryMode.calendarOnly,
-          //      //   initialDatePickerMode: DatePickerMode.day,
-          //      //   onDatePickerModeChange: (Date) => Provider.of<MyDate>(context,listen:true).changemydate(Date:provider.mydate),
-          //     }, icon: Icon(Icons.date_range,size: 30,),),
-          //   ),
-          // ],
-          actions:[ Consumer<PlatformController>(
+          leading: IconButton(onPressed: (){
+            Navigator.of(context).pushNamed(Myroutes.andro_add,);
+          }, icon: Icon(Icons.person_add_alt_1,color: Colors.white,)),
+          actions:[
+            Consumer<PlatformController>(
             builder: (context,provider, child) => Padding(
               padding: const EdgeInsets.only(right: 10),
               child: Switch(
@@ -51,9 +45,14 @@ class Homeandro extends StatelessWidget {
                 },
               ),
             ),
-          ),],
-          title: Text("Android OS",style: TextStyle(fontSize: 32,color: Colors.black),),
+          ),
+            IconButton(onPressed: (){
+              Provider.of<PlatformController>(context,listen: false).ChangeMyTheme();
+            }, icon: (provider.IsDark)?Icon(Icons.dark_mode):Icon(Icons.light_mode_sharp,color: Colors.white,)),
+          ],
           centerTitle: true,
+          title: (provider.IsDark)?Text("Android OS",style: TextStyle(fontSize: 32,color: Colors.white)):Text("Android OS",style: TextStyle(fontSize: 32,color: Colors.white),
+        ),
         ),
         body:<Widget>[
           Column(

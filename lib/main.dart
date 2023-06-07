@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:platform_controller/controllers/date_controller.dart';
 import 'package:platform_controller/controllers/platform_provider.dart';
 import 'package:platform_controller/utils/route_utils.dart';
+import 'package:platform_controller/views/screens/Ios_add_page.dart';
+import 'package:platform_controller/views/screens/andro_add_page.dart';
 import 'package:platform_controller/views/screens/android_home_page.dart';
 import 'package:platform_controller/views/screens/ios_call_page.dart';
 import 'package:platform_controller/views/screens/ios_home_page.dart';
@@ -33,13 +35,52 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
-      theme: ThemeData(
-        colorSchemeSeed: Colors.deepPurpleAccent,
-        useMaterial3: true,
+      theme: provider.IsDark?ThemeData(
+          brightness: Brightness.light,
+          colorSchemeSeed: Colors.blue,
+          textTheme: TextTheme(
+            bodyMedium: TextStyle(
+              fontSize: 25,
+              color: Colors.black
+            ),
+          ),
+          useMaterial3: true,
+          appBarTheme: AppBarTheme(
+            color: Colors.blue,
+            foregroundColor: Colors.white,
+            toolbarHeight: 100,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(30),),),
+          ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.blue,
+          )
+      ): ThemeData(
+        colorSchemeSeed: Colors.deepPurple,
+          brightness: Brightness.dark,
+          textTheme: TextTheme(
+            bodyMedium: TextStyle(
+              fontSize: 25,
+              color: Colors.white,
+            ),
+          ),
+          appBarTheme: AppBarTheme(
+            color: Colors.deepPurple,
+            foregroundColor: Colors.white,
+            toolbarHeight: 100,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(30),),),
+          ),
+          useMaterial3: true,
+
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.deepPurple.shade200,
+          )
       ),
 
       routes: {
         '/':(context) => Homeandro(),
+        Myroutes.andro_add:(context) => Andro_Add(),
 
       },
     ):CupertinoApp(
@@ -48,6 +89,7 @@ class MyApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       routes: {
       '/':(p0) => Homeios(),
+        Myroutes.ios_add:(p0) => Ios_Add(),
       },
     ),
     );

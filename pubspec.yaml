@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider:
   device_preview: ^1.1.0
+  image_picker: ^0.8.7+5
 
 dev_dependencies:
   flutter_test:
