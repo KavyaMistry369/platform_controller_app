@@ -38,6 +38,7 @@ dependencies:
   provider:
   device_preview: ^1.1.0
   image_picker: ^0.8.7+5
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

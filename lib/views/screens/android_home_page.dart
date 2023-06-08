@@ -55,57 +55,128 @@ class Homeandro extends StatelessWidget {
         ),
         ),
         body:<Widget>[
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 100,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset("lib/views/assets/chat.png",width: 150,),
+                  ],
+                ),
+                SizedBox(height: 30,),
+                Text("not any chats yet done",style: TextStyle(fontSize: 30),),
+                SizedBox(height: 80,),
+                Padding(
+                  padding: const EdgeInsets.all(14.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      FloatingActionButton(onPressed: (){},child: Icon(Icons.add),),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 100,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset("lib/views/assets/call.png",width: 150,),
+                  ],
+                ),
+                SizedBox(height: 30,),
+                Text("not any calls yet added",style: TextStyle(fontSize: 30),),
+                SizedBox(height: 80,),
+                Padding(
+                  padding: const EdgeInsets.all(14.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      FloatingActionButton(onPressed: (){
+                        Navigator.of(context).pushNamed(Myroutes.andro_add);
+                      },child: Icon(Icons.add),),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 100,),
+              SizedBox(height: 20,),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("lib/views/assets/chat.png",width: 150,),
+                  SizedBox(width: 30,),
+                  Icon(Icons.person,size: 40,),
+                  SizedBox(width: 50,),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Profile\n",style: TextStyle(fontSize: 20),
+                        ),
+                        TextSpan(
+                          text: "Update Profile Data",style: TextStyle(fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 70,),
+                  Transform.scale(
+                    scale: 0.9,
+                    child: Switch(value: provider.IsOpen, onChanged: (val){
+                      Provider.of<PlatformController>(context,listen: false).ChangemyProfile();
+                      if(val==true)
+                      {
+                        Navigator.of(context).pushNamed(Myroutes.andro_pro);
+                      }
+                    },),
+                  ),
                 ],
               ),
               SizedBox(height: 30,),
-              Text("not any chats yet done",style: TextStyle(fontSize: 30),),
-              SizedBox(height: 80,),
-              Padding(
-                padding: const EdgeInsets.all(14.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    FloatingActionButton(onPressed: (){},child: Icon(Icons.add),),
-                  ],
-                ),
+              Container(
+                height: 1,
+                width: 380,
+                color: Colors.black,
               ),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 100,),
+              SizedBox(height: 20,),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("lib/views/assets/call.png",width: 150,),
+                  SizedBox(width: 40,),
+                  Icon(Icons.light_mode,size: 30,),
+                  SizedBox(width: 50,),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Theme\n",style: TextStyle(fontSize: 20),
+                        ),
+                        TextSpan(
+                          text: "Change Theme",style: TextStyle(fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 100,),
+                  Transform.scale(
+                    scale: 0.9,
+                    child: Switch(value: provider.IsTheme, onChanged: (val){
+                      Provider.of<PlatformController>(context,listen: false).ChangeTheme();
+                    }),
+                  ),
                 ],
               ),
-              SizedBox(height: 30,),
-              Text("not any calls yet added",style: TextStyle(fontSize: 30),),
-              SizedBox(height: 80,),
-              Padding(
-                padding: const EdgeInsets.all(14.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    FloatingActionButton(onPressed: (){},child: Icon(Icons.add),),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Text("Page3"),
             ],
           ),
         ][provider.navindex],

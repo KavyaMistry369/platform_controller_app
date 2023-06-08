@@ -1,6 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:platform_controller/utils/route_utils.dart';
 
 class PlatformController extends ChangeNotifier
 {
@@ -9,8 +13,11 @@ class PlatformController extends ChangeNotifier
     String? FullName;
     String? Phone_Number;
     String?Chats;
-    File? Image;
+    String? Image;
     bool IsDark=false;
+    bool IsOpen=false;
+    bool IsTheme=false;
+
 
     void platform({required bool val}){
       isAndroid=!isAndroid;
@@ -23,12 +30,22 @@ class PlatformController extends ChangeNotifier
     }
 
     void SetImage({required File MyImage}){
-        Image=MyImage;
+        Image=MyImage as String?;
         notifyListeners();
     }
 
     void ChangeMyTheme(){
         IsDark=!IsDark;
+        notifyListeners();
+    }
+
+    void ChangemyProfile(){
+        IsOpen=!IsOpen;
+        notifyListeners();
+    }
+
+    void ChangeTheme(){
+        IsTheme=!IsTheme;
         notifyListeners();
     }
 }

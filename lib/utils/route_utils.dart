@@ -7,5 +7,7 @@ class Myroutes{
   static String ios_call="Callios";
   static String andro_add="Andro_Add";
   static String ios_add="Ios_Add";
+  static String andro_pro="Andro_Profile";
+  static String andro_con="Andro_Contacts";
 
 }
