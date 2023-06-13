@@ -12,12 +12,66 @@ class Homeios extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<MyDate>(
-      builder:(context,provider, child) =>  CupertinoPageScaffold(
+      builder:(context,provider, child) =>  CupertinoTabScaffold(
+        tabBar: CupertinoTabBar(items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.chat_bubble_2),label: "Chats"),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.phone),label: "Calls"),
+          BottomNavigationBarItem(icon:Icon(CupertinoIcons.person_add),label: "Add"),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.settings),label: "Settings"),
+        ]), tabBuilder: (BuildContext context, int index) {
+          return Center(
+            child: Column(
+              children: [
+                SizedBox(height: 200,),
+                (index==0)? Image.asset("lib/views/assets/chats.png",width: 250,):Image.asset("lib/views/assets/telephone-call.png",width: 250,),
+                SizedBox(height: 30,),
+                (index==0)? Text("Not any chats are there",style: TextStyle(fontSize: 30),): Text("Not any contacts are there",style: TextStyle(fontSize: 30),),
+                SizedBox(height: 150,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    (index==0)? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FloatingActionButton(onPressed: (){},child: Icon(CupertinoIcons.add),),
+                    ):Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FloatingActionButton(onPressed: (){},child: Icon(CupertinoIcons.add),),
+                    ),
+                  ],
+                ),
+                
+            (index==2)?CupertinoListSection(
+                      children: [
+                      SizedBox(height: 80,),
+                      Stack(
+                      alignment: Alignment.bottomRight,
+                      children:[ CircleAvatar(
+                      radius: 100,
+                      ),
+                      FloatingActionButton(onPressed: (){},child: Icon(CupertinoIcons.add),)
+                      ],
+                      ),
+                      SizedBox(height: 30,),
+                      Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: CupertinoTextField(
+                      prefix: Icon(CupertinoIcons.person),
+                      ),
+                      ),
+                      SizedBox(height: 30,),
+                      ],
+                      ):CupertinoListTile(title: Text(""))
+              ],
+            ),
+          );
+      },
+      ),
+      child:  CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           leading: GestureDetector(
-            onTap: (){
-              Navigator.of(context).pushNamed(Myroutes.ios_add);
-            },
+              onTap: (){
+
+              },
               child: Icon(CupertinoIcons.person_add)),
           // leading: GestureDetector(onTap: (){
           //  showCupertinoModalPopup(context: context, builder: (context) =>  Container(
@@ -40,13 +94,22 @@ class Homeios extends StatelessWidget {
           })),
           middle: const Text("Ios OS",style: TextStyle(fontSize: 30),),
         ),
-          child: Center(
-        child: CupertinoListSection(
-          children: [
-                  Text("Ios")
-                ],
-              ),),
-            ),
+        child: Center(
+          child: CupertinoListSection(
+            children: [
+              Text("Ios"),
+              CupertinoTabView(
+                builder: (context) {
+                  return Container(
+                    height: 400,
+                    width: 300,
+                    color: CupertinoColors.activeGreen,
+                  );
+                },
+              ),
+            ],
+          ),),
+      ),
       );
   }
 }

@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       theme: provider.IsDark?ThemeData(
           brightness: Brightness.light,
-          colorSchemeSeed: Colors.blue,
+          colorSchemeSeed: Colors.amber,
           textTheme: TextTheme(
             bodyMedium: TextStyle(
               fontSize: 25,
@@ -52,17 +52,17 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
           appBarTheme: AppBarTheme(
-            color: Colors.blue,
-            foregroundColor: Colors.white,
+            color: Colors.amber,
+            foregroundColor: Colors.black,
             toolbarHeight: 100,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(30),),),
           ),
           floatingActionButtonTheme: FloatingActionButtonThemeData(
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.blue,
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.amber,
           )
       ): ThemeData(
-        colorSchemeSeed: Colors.deepPurple,
+        colorSchemeSeed: Colors.blue,
           brightness: Brightness.dark,
           textTheme: TextTheme(
             bodyMedium: TextStyle(
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           appBarTheme: AppBarTheme(
-            color: Colors.deepPurple,
+            color: Colors.blue,
             foregroundColor: Colors.white,
             toolbarHeight: 100,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(30),),),
@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
 
           floatingActionButtonTheme: FloatingActionButtonThemeData(
             foregroundColor: Colors.black,
-            backgroundColor: Colors.deepPurple.shade200,
+            backgroundColor: Colors.blue.shade200,
           )
       ),
 

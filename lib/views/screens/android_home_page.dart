@@ -33,7 +33,7 @@ class Homeandro extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(onPressed: (){
             Navigator.of(context).pushNamed(Myroutes.andro_add,);
-          }, icon: Icon(Icons.person_add_alt_1,color: Colors.white,)),
+          }, icon: Icon(Icons.person_add_alt_1,color: (provider.IsDark)?Colors.black:Colors.white,)),
           actions:[
             Consumer<PlatformController>(
             builder: (context,provider, child) => Padding(
@@ -51,7 +51,7 @@ class Homeandro extends StatelessWidget {
             }, icon: (provider.IsDark)?Icon(Icons.dark_mode):Icon(Icons.light_mode_sharp,color: Colors.white,)),
           ],
           centerTitle: true,
-          title: (provider.IsDark)?Text("Android OS",style: TextStyle(fontSize: 32,color: Colors.white)):Text("Android OS",style: TextStyle(fontSize: 32,color: Colors.white),
+          title: (provider.IsDark)?Text("Android OS",style: TextStyle(fontSize: 32,color: Colors.black)):Text("Android OS",style: TextStyle(fontSize: 32,color: Colors.white),
         ),
         ),
         body:<Widget>[
@@ -60,11 +60,11 @@ class Homeandro extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 100,),
+                SizedBox(height: 200,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset("lib/views/assets/chat.png",width: 150,),
+                    Image.asset("lib/views/assets/conversation.png",width: 150,),
                   ],
                 ),
                 SizedBox(height: 30,),
@@ -87,11 +87,11 @@ class Homeandro extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 100,),
+                SizedBox(height: 200,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset("lib/views/assets/call.png",width: 150,),
+                    Image.asset("lib/views/assets/telephone.png",width: 150,),
                   ],
                 ),
                 SizedBox(height: 30,),
