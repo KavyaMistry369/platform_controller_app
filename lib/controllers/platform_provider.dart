@@ -19,6 +19,7 @@ class PlatformController extends ChangeNotifier
     bool IsTheme=false;
 
 
+
     void platform({required bool val}){
       isAndroid=!isAndroid;
       notifyListeners();

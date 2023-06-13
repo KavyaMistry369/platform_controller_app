@@ -1,35 +1,38 @@
+import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:platform_controller/controllers/date_controller.dart';
+import 'package:platform_controller/controllers/page_controller.dart';
 import 'package:platform_controller/controllers/platform_provider.dart';
 import 'package:platform_controller/utils/route_utils.dart';
 import 'package:provider/provider.dart';
+import 'package:liquid_swipe/Helpers/Helpers.dart';
 import 'dart:io';
 
 class Homeandro extends StatelessWidget {
   const Homeandro({Key? key}) : super(key: key);
 
   @override
+
   Widget build(BuildContext context) {
-
-
     return Consumer<PlatformController>(
       builder:(context,provider, child) =>Scaffold(
-        bottomNavigationBar: NavigationBar(selectedIndex:provider.navindex,destinations: [
-          NavigationDestination(
-            icon: Icon(Icons.chat_sharp),
-            label: 'Chats',
+        bottomNavigationBar: Consumer<PageChange>(
+          builder: (context,provider, child) =>AnimatedNotchBottomBar(
+            notchColor: (Provider.of<PlatformController>(context,listen: false).IsDark)?Colors.black:Colors.white,
+            color: (Provider.of<PlatformController>(context,listen: false).IsDark)?Colors.amber:Colors.blue,
+            bottomBarItems:[
+           BottomBarItem(inActiveItem: Icon(Icons.chat,color: (Provider.of<PlatformController>(context,listen: false).IsDark)?Colors.black:Colors.white,), activeItem: Icon(Icons.chat_bubble_outline,color: (Provider.of<PlatformController>(context,listen: false).IsDark)?Colors.white:Colors.black,)),
+              BottomBarItem(inActiveItem: Icon(Icons.call,color: (Provider.of<PlatformController>(context,listen: false).IsDark)?Colors.black:Colors.white,), activeItem: Icon(Icons.call_end_outlined,color: (Provider.of<PlatformController>(context,listen: false).IsDark)?Colors.white:Colors.black,)),
+              BottomBarItem(inActiveItem: Icon(Icons.settings,color: (Provider.of<PlatformController>(context,listen: false).IsDark)?Colors.black:Colors.white,), activeItem: Icon(Icons.settings_accessibility,color: (Provider.of<PlatformController>(context,listen: false).IsDark)?Colors.white:Colors.black,)),
+
+          ],
+            onTap: (index){
+            provider.ChangeMyPage(index: index);
+            }, notchBottomBarController: provider.MyNotchController,
           ),
-          NavigationDestination(
-            icon: Icon(Icons.call),
-            label: 'Calls',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.settings),
-            label: 'Saved',
-          ),
-        ],onDestinationSelected:(int index) => {
-          Provider.of<PlatformController>(context,listen: false).nav(index: index),
-        },),
+        ),
         appBar: AppBar(
           leading: IconButton(onPressed: (){
             Navigator.of(context).pushNamed(Myroutes.andro_add,);
@@ -54,133 +57,154 @@ class Homeandro extends StatelessWidget {
           title: (provider.IsDark)?Text("Android OS",style: TextStyle(fontSize: 32,color: Colors.black)):Text("Android OS",style: TextStyle(fontSize: 32,color: Colors.white),
         ),
         ),
-        body:<Widget>[
-          SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 200,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset("lib/views/assets/conversation.png",width: 150,),
-                  ],
-                ),
-                SizedBox(height: 30,),
-                Text("not any chats yet done",style: TextStyle(fontSize: 30),),
-                SizedBox(height: 80,),
-                Padding(
-                  padding: const EdgeInsets.all(14.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FloatingActionButton(onPressed: (){},child: Icon(Icons.add),),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 200,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset("lib/views/assets/telephone.png",width: 150,),
-                  ],
-                ),
-                SizedBox(height: 30,),
-                Text("not any calls yet added",style: TextStyle(fontSize: 30),),
-                SizedBox(height: 80,),
-                Padding(
-                  padding: const EdgeInsets.all(14.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FloatingActionButton(onPressed: (){
-                        Navigator.of(context).pushNamed(Myroutes.andro_add);
-                      },child: Icon(Icons.add),),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Column(
-            children: [
-              SizedBox(height: 20,),
-              Row(
+        body:PageView(
+          onPageChanged: (int index){
+            Provider.of<PageChange>(context,listen: false).MyPageController;
+          },
+          controller: Provider.of<PageChange>(context,listen: false).MyPageController,
+          children: [
+// chats page
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(width: 30,),
-                  Icon(Icons.person,size: 40,),
-                  SizedBox(width: 50,),
-                  Text.rich(
-                    TextSpan(
+                  SizedBox(height: 130,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset("lib/views/assets/conversation.png",width: 150,),
+                    ],
+                  ),
+                  SizedBox(height: 30,),
+                  Text("not any chats yet done",style: TextStyle(fontSize: 30),),
+                  SizedBox(height: 50,),
+                  Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextSpan(
-                          text: "Profile\n",style: TextStyle(fontSize: 20),
-                        ),
-                        TextSpan(
-                          text: "Update Profile Data",style: TextStyle(fontSize: 13),
-                        ),
+
                       ],
                     ),
                   ),
-                  SizedBox(width: 70,),
-                  Transform.scale(
-                    scale: 0.9,
-                    child: Switch(value: provider.IsOpen, onChanged: (val){
-                      Provider.of<PlatformController>(context,listen: false).ChangemyProfile();
-                      if(val==true)
-                      {
-                        Navigator.of(context).pushNamed(Myroutes.andro_pro);
-                      }
-                    },),
-                  ),
                 ],
               ),
-              SizedBox(height: 30,),
-              Container(
-                height: 1,
-                width: 380,
-                color: Colors.black,
-              ),
-              SizedBox(height: 20,),
-              Row(
+            ),
+// call page
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(width: 40,),
-                  Icon(Icons.light_mode,size: 30,),
-                  SizedBox(width: 50,),
-                  Text.rich(
-                    TextSpan(
+                  SizedBox(height: 130,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset("lib/views/assets/telephone.png",width: 150,),
+                    ],
+                  ),
+                  SizedBox(height: 30,),
+                  Text("not any calls yet added",style: TextStyle(fontSize: 30),),
+                  SizedBox(height: 50,),
+                  Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextSpan(
-                          text: "Theme\n",style: TextStyle(fontSize: 20),
-                        ),
-                        TextSpan(
-                          text: "Change Theme",style: TextStyle(fontSize: 13),
-                        ),
                       ],
                     ),
                   ),
-                  SizedBox(width: 100,),
-                  Transform.scale(
-                    scale: 0.9,
-                    child: Switch(value: provider.IsTheme, onChanged: (val){
-                      Provider.of<PlatformController>(context,listen: false).ChangeTheme();
-                    }),
+                ],
+              ),
+            ),
+// settings pages
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  SizedBox(height: 20,),
+                  Row(
+                    children: [
+                      SizedBox(width: 30,),
+                      Icon(Icons.person,size: 40,),
+                      SizedBox(width: 50,),
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Profile\n",style: TextStyle(fontSize: 20),
+                            ),
+                            TextSpan(
+                              text: "Update Profile Data",style: TextStyle(fontSize: 13),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 70,),
+                      Transform.scale(
+                        scale: 0.9,
+                        child: Switch(value: provider.IsOpen, onChanged: (val){
+                          Provider.of<PlatformController>(context,listen: false).ChangemyProfile();
+                          if(val==true)
+                          {
+                            Navigator.of(context).pushNamed(Myroutes.andro_pro);
+                          }
+                        },),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 30,),
+                  Container(
+                    height: 1,
+                    width: 380,
+                    color: Colors.black,
+                  ),
+                  SizedBox(height: 20,),
+                  Row(
+                    children: [
+                      SizedBox(width: 40,),
+                      Icon(Icons.light_mode,size: 30,),
+                      SizedBox(width: 50,),
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Theme\n",style: TextStyle(fontSize: 20),
+                            ),
+                            TextSpan(
+                              text: "Change Theme",style: TextStyle(fontSize: 13),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 100,),
+                      Transform.scale(
+                        scale: 0.9,
+                        child: Switch(value: provider.IsTheme, onChanged: (val){
+                          Provider.of<PlatformController>(context,listen: false).ChangeTheme();
+                        }),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
-        ][provider.navindex],
-      ),
+            ),
+          ],
+        ),
+        extendBody: true,
+        ),
       );
   }
 }
+// BottomNavigationBar(
+// currentIndex: provider.MyIndex,
+// onTap: (index){
+// provider.ChangeMyPage(index: index);
+// },
+// selectedItemColor:(Provider.of<PlatformController>(context,listen: false).IsDark)?Colors.amber:Colors.blue,
+// items: <BottomNavigationBarItem>[
+// BottomNavigationBarItem(icon: Icon(Icons.chat_sharp),label: "Chats"),
+// BottomNavigationBarItem(icon: Icon(Icons.call),label: "Calls"),
+// BottomNavigationBarItem(icon: Icon(Icons.settings),label: "Settings"),
+// ]),

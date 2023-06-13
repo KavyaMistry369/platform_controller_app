@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:platform_controller/controllers/contact_controller.dart';
 import 'package:platform_controller/controllers/date_controller.dart';
+import 'package:platform_controller/controllers/page_controller.dart';
 import 'package:platform_controller/controllers/platform_provider.dart';
 import 'package:platform_controller/utils/route_utils.dart';
 import 'package:platform_controller/views/screens/Ios_add_page.dart';
@@ -25,6 +26,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => PlatformController(),),
         ChangeNotifierProvider(create: (context) => MyDate(),),
         ChangeNotifierProvider(create: (context) => MyAllListController(prefs: prefs),),
+        ChangeNotifierProvider(create: (context) => PageChange(),)
       ],
         child: MyApp(),
       ),
