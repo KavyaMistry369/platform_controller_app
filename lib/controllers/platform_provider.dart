@@ -15,7 +15,7 @@ class PlatformController extends ChangeNotifier
     String?Chats;
     String? Image;
     bool IsDark=false;
-    bool IsOpen=false;
+    bool IsOpen=true;
     bool IsTheme=false;
 
 

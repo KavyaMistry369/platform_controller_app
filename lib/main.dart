@@ -13,6 +13,7 @@ import 'package:platform_controller/views/screens/andro_profile.dart';
 import 'package:platform_controller/views/screens/android_home_page.dart';
 import 'package:platform_controller/views/screens/ios_call_page.dart';
 import 'package:platform_controller/views/screens/ios_home_page.dart';
+import 'package:platform_controller/views/screens/ios_settings_page.dart';
 import 'package:provider/provider.dart';
 import'package:device_preview/device_preview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -100,6 +101,8 @@ class MyApp extends StatelessWidget {
       routes: {
       '/':(p0) => Homeios(),
         Myroutes.ios_add:(p0) => Ios_Add(),
+        Myroutes.ios_call:(p0) => Callios(),
+        Myroutes.ios_settings:(p0) => Settings(),
       },
     ),
     );

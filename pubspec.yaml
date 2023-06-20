@@ -36,12 +36,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   provider:
-  device_preview: ^1.1.0
-  image_picker: ^0.8.7+5
+  device_preview:
+  image_picker:
   shared_preferences:
-  liquid_swipe: ^3.1.0
-  curved_navigation_bar: ^1.0.3
-  animated_notch_bottom_bar: ^1.0.0
+  liquid_swipe:
+  curved_navigation_bar:
+  animated_notch_bottom_bar:
 
 dev_dependencies:
   flutter_test:

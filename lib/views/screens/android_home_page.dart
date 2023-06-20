@@ -124,35 +124,108 @@ class Homeandro extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(height: 20,),
-                  Row(
-                    children: [
-                      SizedBox(width: 30,),
-                      Icon(Icons.person,size: 40,),
-                      SizedBox(width: 50,),
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Profile\n",style: TextStyle(fontSize: 20),
-                            ),
-                            TextSpan(
-                              text: "Update Profile Data",style: TextStyle(fontSize: 13),
-                            ),
-                          ],
+                  (provider.IsOpen)?Container(
+                   height: (provider.IsOpen)?350:100,
+                   width: 400,
+                   child:  SingleChildScrollView(
+                     scrollDirection: Axis.vertical,
+                     child: Column(
+                       children: [
+                         SizedBox(height: 70,),
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.start,
+                           children: [
+                             SizedBox(width: 30,),
+                             Icon(Icons.person,size: 40,),
+                             SizedBox(width: 50,),
+                             Text.rich(
+                               TextSpan(
+                                 children: [
+                                   TextSpan(
+                                     text: "Profile\n",style: TextStyle(fontSize: 20),
+                                   ),
+                                   TextSpan(
+                                     text: "Update Profile Data",style: TextStyle(fontSize: 13),
+                                   ),
+                                 ],
+                               ),
+                             ),
+                             SizedBox(width: 70,),
+                             Transform.scale(
+                               scale: 0.9,
+                               child: Switch(value: provider.IsOpen, onChanged: (val){
+                                 Provider.of<PlatformController>(context,listen: false).ChangemyProfile();
+                               },),
+                             ),
+                           ],
+                         ),
+                         SizedBox(height: 50,),
+                         Stack(
+                           alignment: Alignment.bottomRight,
+                           children:[ CircleAvatar(
+                             radius: 80,
+                           ),
+                             FloatingActionButton.small(onPressed: (){},child: Icon(Icons.camera),)
+                     ],
+                         ),
+                         SizedBox(height: 30,),
+                         Transform.scale(
+                           scale: 0.7,
+                           child: TextFormField(
+                             decoration: InputDecoration(
+                               hintText: "Enter your name",
+                             ),
+                           ),
+                         ),
+                         Transform.scale(
+                           scale: 0.7,
+                           child: TextFormField(
+                             decoration: InputDecoration(
+                               hintText: "Enter your Bio",
+                             ),
+                           ),
+                         ),
+                         SizedBox(height: 20,),
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                           children: [
+                             TextButton(onPressed: (){}, child: Text("Save")),
+                             TextButton(onPressed: (){}, child: Text("Clear"))
+                           ],
+                         ),
+                       ],
+                     ),
+                   ),
+                 ):Container(
+                    height: (provider.IsOpen)?350:100,
+                    width: 400,
+                    child:  Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(width: 30,),
+                        Icon(Icons.person,size: 40,),
+                        SizedBox(width: 50,),
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Profile\n",style: TextStyle(fontSize: 20),
+                              ),
+                              TextSpan(
+                                text: "Update Profile Data",style: TextStyle(fontSize: 13),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 70,),
-                      Transform.scale(
-                        scale: 0.9,
-                        child: Switch(value: provider.IsOpen, onChanged: (val){
-                          Provider.of<PlatformController>(context,listen: false).ChangemyProfile();
-                          if(val==true)
-                          {
-                            Navigator.of(context).pushNamed(Myroutes.andro_pro);
-                          }
-                        },),
-                      ),
-                    ],
+                        SizedBox(width: 70,),
+                        Transform.scale(
+                          scale: 0.9,
+                          child: Switch(value: provider.IsOpen, onChanged: (val){
+                            Provider.of<PlatformController>(context,listen: false).ChangemyProfile();
+                          },),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 30,),
                   Container(
@@ -181,8 +254,8 @@ class Homeandro extends StatelessWidget {
                       SizedBox(width: 100,),
                       Transform.scale(
                         scale: 0.9,
-                        child: Switch(value: provider.IsTheme, onChanged: (val){
-                          Provider.of<PlatformController>(context,listen: false).ChangeTheme();
+                        child: Switch(value: provider.IsDark, onChanged: (val){
+                          Provider.of<PlatformController>(context,listen: false).ChangeMyTheme();
                         }),
                       ),
                     ],
