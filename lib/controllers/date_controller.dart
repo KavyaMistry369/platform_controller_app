@@ -5,8 +5,9 @@ class MyDate extends ChangeNotifier{
 
   DateTime mydate=DateTime.now();
   TimeOfDay Mytime=TimeOfDay.fromDateTime(DateTime.now());
+  DateTime mytime=DateTime.now();
 
- void  changemydate ({required DateTime Date}){
+ void changemydate ({required DateTime Date}){
     this.mydate=Date;
     notifyListeners();
 }
@@ -15,5 +16,10 @@ class MyDate extends ChangeNotifier{
    Mytime=TimeOfDay.fromDateTime(time);
    notifyListeners();
 }
+
+  Changemytime({required DateTime time}){
+    mytime=TimeOfDay.fromDateTime(time) as DateTime;
+    notifyListeners();
+  }
 
 }

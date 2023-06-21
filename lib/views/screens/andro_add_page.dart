@@ -29,10 +29,12 @@ class Andro_Add extends StatelessWidget {
             }, icon: Icon(Icons.calendar_month,color: Colors.white,)),
           ),
           Consumer<PlatformController>(
-            builder:(context,provider, child) => IconButton(onPressed: (){
-
+            builder:(context,provider, child) => IconButton(onPressed: ()async{
+              TimeOfDay? t=await showTimePicker(context: context, initialTime: Provider.of<MyDate>(context,listen: false).Mytime);
+              DateTime d=DateTime(0,0,0,t!.hour,t!.minute);
+              Provider.of<MyDate>(context,listen: false).changemytime(time: d);
             }, icon: Icon(Icons.access_time,color: Colors.white,)),
-          )
+          ),
         ],
         leading: IconButton(onPressed: (){
           Navigator.of(context).pop();
@@ -59,16 +61,16 @@ class Andro_Add extends StatelessWidget {
                               ElevatedButton(onPressed: ()async{
                                 ImagePicker picker=ImagePicker();
                                 XFile? image = await picker.pickImage(source: ImageSource.camera);
-
+                                Navigator.of(context).pop();
                                 if (image != null) {
                                   provider.SetImage(MyImage: File(image.path));
                                 }
-                                Navigator.of(context).pop();
+
                               }, child: Text("Camera"),),
                               ElevatedButton(onPressed: ()async{
                                 ImagePicker picker=ImagePicker();
                                 XFile? image = await picker.pickImage(source: ImageSource.gallery);
-
+                                Navigator.of(context).pop();
                                 if (image != null) {
                                   provider.SetImage(MyImage: File(image.path));
                                 }

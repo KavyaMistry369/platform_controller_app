@@ -96,6 +96,9 @@ class MyApp extends StatelessWidget {
       },
     ):CupertinoApp(
       debugShowCheckedModeBanner: false,
+      theme: CupertinoThemeData(
+        brightness: (Provider.of<PlatformController>(context,listen: false).IsDark)?Brightness.dark:Brightness.light,
+      ),
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
       routes: {

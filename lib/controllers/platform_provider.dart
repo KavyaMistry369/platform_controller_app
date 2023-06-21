@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:platform_controller/utils/route_utils.dart';
+
 
 class PlatformController extends ChangeNotifier
 {
@@ -13,11 +12,10 @@ class PlatformController extends ChangeNotifier
     String? FullName;
     String? Phone_Number;
     String?Chats;
-    String? Image;
+    File? Image;
     bool IsDark=false;
     bool IsOpen=true;
     bool IsTheme=false;
-
 
 
     void platform({required bool val}){
@@ -30,8 +28,13 @@ class PlatformController extends ChangeNotifier
         notifyListeners();
     }
 
+    void ios_nav({required int index}){
+        navindex=index;
+        notifyListeners();
+    }
+
     void SetImage({required File MyImage}){
-        Image=MyImage as String?;
+        Image=MyImage;
         notifyListeners();
     }
 
@@ -49,4 +52,6 @@ class PlatformController extends ChangeNotifier
         IsTheme=!IsTheme;
         notifyListeners();
     }
+
+
 }

@@ -1,28 +1,42 @@
 import 'package:flutter/cupertino.dart';
+import 'package:platform_controller/controllers/platform_provider.dart';
 import 'package:platform_controller/views/screens/Ios_add_page.dart';
 import 'package:platform_controller/views/screens/ios_call_page.dart';
 import 'package:platform_controller/views/screens/ios_settings_page.dart';
+import 'package:provider/provider.dart';
 
-List MyPages=[
-  Homeios(),
-  Callios(),
-  Ios_Add(),
-  Settings(),
-];
+import 'ios_chat_page.dart';
+
 
 class Homeios extends StatelessWidget {
   Homeios({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(CupertinoIcons.chat_bubble_2),label: "Chats"),
-        BottomNavigationBarItem(icon: Icon(CupertinoIcons.phone),label: "Calls"),
-        BottomNavigationBarItem(icon:Icon(CupertinoIcons.person_add),label: "Add"),
-        BottomNavigationBarItem(icon: Icon(CupertinoIcons.settings),label: "Settings"),
-      ]), tabBuilder: (BuildContext context, int index) {
-     return Builder(builder: (context) => MyPages[index],);
-    },
+    List MyPages=[
+      Chatios(),
+      Callios(),
+      Ios_Add(),
+      Settings(),
+    ];
+    return Consumer<PlatformController>(
+      builder: (context,provider, child) => CupertinoTabScaffold(
+        tabBar: CupertinoTabBar(
+          currentIndex: provider.navindex,
+            onTap: (index){
+            Provider.of<PlatformController>(context,listen: false).ios_nav(index: index);
+            },
+            items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.chat_bubble_2),label: "Chats"),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.phone),label: "Calls"),
+          BottomNavigationBarItem(icon:Icon(CupertinoIcons.person_add),label: "Add"),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.settings),label: "Settings"),
+        ]),
+        tabBuilder: (BuildContext context, int index) {
+        return CupertinoTabView(
+          builder: (context) => MyPages[index],
+        );
+      },
+      ),
     );
   }
 }
