@@ -2,7 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:platform_controller/controllers/contact_controller.dart';
 import 'package:platform_controller/controllers/date_controller.dart';
+import 'package:platform_controller/modals/modal%20_class.dart';
+import 'package:platform_controller/utils/route_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/platform_provider.dart';
@@ -11,7 +15,7 @@ GlobalKey<FormState>FomrKey=GlobalKey<FormState>();
 String? FullName;
 String? Phone_Number;
 String? Chats;
-File? Image;
+File? my_image;
 
 class Andro_Add extends StatelessWidget {
   const Andro_Add({super.key});
@@ -46,7 +50,6 @@ class Andro_Add extends StatelessWidget {
           key: FomrKey,
           child: Consumer<PlatformController>(
             builder:(context,provider, child) => SingleChildScrollView(
-              scrollDirection: Axis.vertical,
               child: Column(
                 children: [
                   Stack(
@@ -54,7 +57,7 @@ class Andro_Add extends StatelessWidget {
                       children:[ CircleAvatar(radius: 80,
                         foregroundImage:  provider.Image!=null?FileImage(provider.Image! as File):null,
                       ),
-                        FloatingActionButton(onPressed: (){
+                        FloatingActionButton.small(onPressed: (){
                           showDialog(context: context, builder:(context) => AlertDialog(
                             title: Text("Choose Your Way"),
                             actions: [
@@ -143,19 +146,27 @@ class Andro_Add extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ElevatedButton(onPressed: (){
+                      ElevatedButton(onPressed: ()async{
+                        Directory? directory = await getExternalStorageDirectory();
+
+                        File NewImage=await Provider.of<PlatformController>(context,listen: false).Image!.copy("${directory!.path}/${FullName}.jpg");
                         if(FomrKey.currentState!.validate())
                           {
                           FomrKey.currentState!.save();
+                          Provider.of<MyAllListController>(context,listen: false).AddListContact(name: FullName!, contact: Phone_Number!, email:Chats!, image: NewImage.path);
                           ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(duration: Duration(seconds: 2),behavior:SnackBarBehavior.floating,content: Text("Successfully Added !!",style: TextStyle(color: Colors.white),),backgroundColor: Colors.green),
                           );
+                          Navigator.of(context).pop();
+                          }
+                        else
+                          {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(duration: Duration(seconds: 2),behavior:SnackBarBehavior.floating,content: Text("Successfully Not Added !!",style: TextStyle(color: Colors.white),),backgroundColor: Colors.redAccent));
                           }
                       }, child: Text("Save")),
                       ElevatedButton(onPressed: (){
                         FomrKey.currentState!.reset();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(duration: Duration(seconds: 2),behavior:SnackBarBehavior.floating,content: Text("Successfully Not Added !!",style: TextStyle(color: Colors.white),),backgroundColor: Colors.redAccent));
                         FullName=Phone_Number=Chats=null;
 
                       }, child: Text("Cancel")),

@@ -4,7 +4,6 @@ import 'package:platform_controller/views/screens/Ios_add_page.dart';
 import 'package:platform_controller/views/screens/ios_call_page.dart';
 import 'package:platform_controller/views/screens/ios_settings_page.dart';
 import 'package:provider/provider.dart';
-
 import 'ios_chat_page.dart';
 
 
