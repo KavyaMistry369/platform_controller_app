@@ -1,3 +1,6 @@
+
+# Platform Converter
+
 The Platform Converter App is a mobile application designed to provide users with an interactive
 platform to explore and compare the concepts of Material Design and Human Interface Design in
 Flutter apps. The app allows users to switch between different app designs with just a single tap,
